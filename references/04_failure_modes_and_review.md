@@ -65,5 +65,5 @@ Run before the first render of any new roster or after any sheet change:
 ## Delivery note
 
 State in the delivery message: the roster map name and the `version` of each sheet used,
-any `kit:` overrides, the uniqueness check result,
+any `kit:` overrides, the uniqueness check result and any owner-accepted collisions,
 preview review result, and any `si` mismatches still open from the legacy-index caveat.

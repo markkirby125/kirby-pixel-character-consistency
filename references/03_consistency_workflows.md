@@ -6,17 +6,21 @@
    colour, current style (dye, cut, length), squad number and kit. Real names are fine as
    plain text; never draw crests, sponsor logos or badges.
 2. **Write the sheets.** If the project has no registers yet, define them first
-   (`@palette_lock`: SKINS, HAIRS, KIT entries per team, the letter register and the
-   variant library; module 02), plus one big-head overlay per variant in use if the video
+   (`@palette_lock`: SKINS, HAIRS, KIT entries per team and the letter register; and
+   `@variant_lib`; module 02), plus one big-head overlay per variant in use if the video
    has a big-sprite moment. One `@char_sheet` per character from the research. Resolve the
-   HAIRS/variant mapping; note anything that would not read at sprite scale.
+   HAIRS/variant mapping; note anything that would not read at sprite scale. Then resolve
+   each sheet to its letter-to-colour cmap through the letter register (module 02); steps
+   4 and 5 render from that cmap.
 3. **Uniqueness check.** Collect the normalised `(skin, hair, variant)` tuple (module 01;
    bald counts as no hair) for the roster; assert every tuple unique and every sheet's
    `hair` entry different from its `skin` entry (module 02); resolve collisions by variant
    first, then escalate (module 01). Record the result.
 4. **Preview sheet.** Render a contact sheet (`@preview_sheet`): every character's sprite
    states at final scale (idle + run, every keeper state for keepers, the big sprite
-   where the video has one), with name tags. **Open
+   where the video has one), with name tags, rendered through the engine's actual
+   resolution path: the sheet cmap, or the `si` where the roster map records an open
+   mismatch (show that character's sheet look beside it). **Open
    the image and look at it** - silhouettes distinct at a glance, colours reading true,
    variants aligned on-grid, nothing garbled. This is the same discipline as the video
    review gate, applied before any frame is written. If you cannot view images, hand the
