@@ -28,7 +28,8 @@ and build against the sheet instead:
 - [ ] Every named character in frame matches their sheet: skin, hair colour, variant, kit
       (read the tuple off the frame, not from memory); where the roster map records an
       open `si` mismatch for a character, check the frame against that `si` and list it in
-      the delivery note
+      the delivery note. No crests, sponsor logos, badges, facial features or beards
+      anywhere on a sprite
 - [ ] No two characters in any frame share a normalised `(skin, hair, variant)` tuple
       (module 01: bald counts as no hair), and the two teams' shirts differ in colour
 - [ ] Every identity colour is a named palette entry in the pre-CRT frame (no off-palette

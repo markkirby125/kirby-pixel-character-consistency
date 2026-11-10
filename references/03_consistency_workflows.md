@@ -15,7 +15,9 @@
 3. **Uniqueness check.** Collect the normalised `(skin, hair, variant)` tuple (module 01;
    bald counts as no hair) for the roster; assert every tuple unique and every sheet's
    `hair` entry different from its `skin` entry (module 02); resolve collisions by variant
-   first, then escalate (module 01). Record the result.
+   first, then escalate (module 01). Record the result, then write the `@roster_map`
+   (below), including any legacy `si` values and open mismatches, since step 4 renders
+   from it.
 4. **Preview sheet.** Render a contact sheet (`@preview_sheet`): every character's sprite
    states at final scale (idle + run, every keeper state for keepers, the big sprite
    where the video has one), with name tags, rendered through the engine's actual
