@@ -49,7 +49,7 @@ role: DF
 team: riverside        # shirt WHITE, shorts NAVY - plain colours, no crest, no sponsor
 skin: LSALMON
 hair: DBROWN
-variant: long          # hair widening down over the shoulders - his recognisable shape
+variant: long          # hair widening down over the shoulders - the character's recognisable shape
 build: regular
 keeper: false
 extras: {}

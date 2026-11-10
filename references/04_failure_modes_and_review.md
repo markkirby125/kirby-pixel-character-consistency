@@ -11,7 +11,7 @@ re-decided it from memory. Eight ways it happens, and the checks that catch each
 | 1 | **Re-decided look** | Same character different hair/skin in video 4 | `@roster_map` is the only place looks are assigned; clip files reference ids |
 | 2 | **Palette wander** | Skin or hair is a near-miss hex, or a lighting tint | Registers resolve by name; the only sanctioned post-pass is the project's CRT pass |
 | 3 | **Variant misalignment** | Hair rows shifted, orphan pixels, head floats off the shirt | Variant library keeps the row-count/width contract; preview sheet catches it |
-| 4 | **Legacy-index squeeze** | Dark-skinned player drawn with the hair his coupled index implies | Extend the engine to take sheet cmaps; never distort the sheet to fit the engine. Until then, record every open `si` mismatch in the roster map and the delivery note |
+| 4 | **Legacy-index squeeze** | Dark-skinned player drawn with the hair the player's coupled index implies | Extend the engine to take sheet cmaps; never distort the sheet to fit the engine. Until then, record every open `si` mismatch in the roster map and the delivery note |
 | 5 | **Collision** | Two players in one frame are the same person at a glance | Uniqueness tuple per roster; away team checked against home |
 | 6 | **Flip betrayal** | Asymmetric variant mirrors so the tail leads the face | Flip-aware variants flagged in the library; review gate checks direction of travel |
 | 7 | **Big-sprite split** | Podium sprite reads as a different person than the pitch sprite | Same sheet drives both; hair overlay + kit + build reused, not re-invented |
@@ -45,7 +45,7 @@ Run before the first render of any new roster or after any sheet change:
 1. Render `@preview_sheet`: one cell per character - idle and run states (plus one keeper
    state for keepers) at final integer scale, name tag under each.
 2. Open the image. Check at full size (alignment, stray pixels) **and** at 25 percent
-   (does each character still read as himself?).
+   (does each character still read as the same character?).
 3. Fix at the sheet or library, never by patching the preview.
 4. Record "preview sheet reviewed PASS" in the review log with the date.
 
