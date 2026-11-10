@@ -86,7 +86,7 @@ character. The base register:
 | `p` | shorts | team shorts |
 | `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`, else a build error; everyone else: `skin` |
 | `f` | boots | fixed (usually `BLACK`) |
-| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if set, else `extras.band`, else a build error if the sprite draws `b`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
+| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if set, else `extras.band`, else transparent (an armband cell on a non-captain drops out); `variant: band` with neither key set is a build error; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
 | `.` / space | transparent | - |
 
 Extension protocol: new letters are allowed, but each must be documented here with its
@@ -142,8 +142,9 @@ Two different sprites, two contracts:
   `big-head` overlay of the sheet's `variant` (module 03).
 
 The library ships
-no overlays: before the first big-sprite render, draw one per variant in use, scaled up
-from the 3-row variant's silhouette, and add it to the library. Big-head contract
+no overlays: before the first big-sprite render, draw one per variant in use, redrawn
+inside the 9x9 head block to follow the 3-row variant's silhouette (not a uniform
+upscale), and add it to the library. Big-head contract
 (separate from the variant contract above; it applies to the project's big sprite, never
 to the 9x11 pitch sprite, and the big sprite's head block must be 9x9): 9 wide x 9 tall, replacing the whole head
 block; the 3-row variant contract does not apply. Same rules otherwise: palette colours only, silhouette
