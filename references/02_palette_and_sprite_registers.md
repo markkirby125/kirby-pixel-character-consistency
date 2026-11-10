@@ -61,7 +61,7 @@ sponsor logos, no badges**; ad boards are invented or the channel's own brand.
 ```python
 TEAMS = {
     "riverside": dict(S=WHITE, p=NAVY),
-    "harbour":   dict(S=WHITE, p=DBLUE),        # kit colours sourced; away kits only when verified
+    "harbour":   dict(S=RED, p=DBLUE),          # kit colours sourced; away kits only when verified
     "riverside_away": dict(S=NAVY, striped=True, R=NAVY, B=WHITE, p=NAVY),  # striped away kit
     "gk_lime":   dict(S=LIME, p=BLACK, gloves=WHITE),
     "gk_orange": dict(S=ORANGE, p=BLACK, gloves=WHITE),
@@ -141,6 +141,7 @@ Two different sprites, two contracts:
 The library ships
 no overlays: before the first big-sprite render, draw one per variant in use, scaled up
 from the 3-row variant's silhouette, and add it to the library. Big-head contract
-(separate from the variant contract above): 9 wide x 9 tall, replacing the whole head
+(separate from the variant contract above; it applies to the project's big sprite, never
+to the 9x11 pitch sprite, and the big sprite's head block must be 9x9): 9 wide x 9 tall, replacing the whole head
 block; the 3-row variant contract does not apply. Same rules otherwise: palette colours only, silhouette
 over detail, symmetric unless flip-aware.

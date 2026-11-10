@@ -32,6 +32,7 @@ sheets:
                                           # MISMATCH (open): si 4 gives DBROWN skin / ORANGE hair; sheet is LSALMON / BLACK
   - { id: riverside-lindqvist,  si: 2 }   # MISMATCH (open): si 2 gives TAN skin; sheet skin is LSALMON (hair DBROWN matches)
   - { id: riverside-castellano, si: 3, kit: riverside_away }   # optional kit override (see Kit swaps); sheet not shown here
+                                          # MISMATCH (open): si 3 gives BROWN skin and BROWN hair, one entry (module 02 forbids it)
 ```
 
 Rules:
@@ -46,6 +47,8 @@ Rules:
   sheet's cmap (the letter-to-colour map resolved from the sheet, module 02) directly (a one-time change - do it, the sheets are the asset), or use the
   closest `si` and record the known mismatch in the map until the engine catches up.
   Never distort the sheet to fit the engine.
+* **Kit clash:** the two teams' shirts must differ in colour; where both home kits clash,
+  one team wears a sourced away kit through the `kit:` override.
 * **Multi-team isolation:** the two teams' look spaces must not collide - a home player
   and an away player must never share `(skin, hair, variant)` in the same match video,
   and keepers must be visually distinct from every outfielder on the pitch (kit handles

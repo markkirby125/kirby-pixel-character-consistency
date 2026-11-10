@@ -20,12 +20,15 @@ re-decided it from memory. Eight ways it happens, and the checks that catch each
 ## Sprite checks to add to the visual review gate
 
 The project's frame review gate already looks at every sheet of frames. Add these twelve
-checks to its checklist for any video with sheet-driven characters:
+checks to its checklist for any video with sheet-driven characters. Checks that read
+hair, skin or variant apply to frames that draw them (top-down sprites, the big sprite);
+in in-play side-view frames, which draw kit and build only (module 02), check kit colours
+and build against the sheet instead:
 
 - [ ] Every named character in frame matches their sheet: skin, hair colour, variant, kit
       (read the tuple off the frame, not from memory)
 - [ ] No two characters in any frame share a normalised `(skin, hair, variant)` tuple
-      (module 01: bald counts as no hair)
+      (module 01: bald counts as no hair), and the two teams' shirts differ in colour
 - [ ] Every identity colour is a named palette entry (no off-palette tints anywhere)
 - [ ] Hair variants sit on-grid: correct row count, no orphan pixels, head seated on the
       shirt rows
