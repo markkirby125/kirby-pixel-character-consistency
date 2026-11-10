@@ -120,7 +120,7 @@ Default (`short`):
 | `bun` | `....h....` / `...hhh...` / `..hhhhh..` | tied up on top | no |
 | `twists` | `..h.h.h..` / `..hhhhh..` / `..hhhhh..` | textured / braided | no |
 | `band` | `...hhh...` / `..bbbbb..` / `..hhhhh..` | headband (needs `extras.band`) | no |
-| `ponytail` | `...hhh...` / `..hhhhh.h` / `..hhhhh.h` | tail behind | **yes** |
+| `ponytail` | `...hhh...` / `..hhhhhhh` / `..hhhhhhh` | tail behind | **yes** |
 
 Flip rule: sprite blits mirror when a character faces the other way. Symmetric variants
 are safe. `ponytail` mirrors with the sprite, which keeps the tail behind the head as long

@@ -25,13 +25,16 @@ hair, skin or variant apply to frames that draw them (top-down sprites, the big 
 in in-play side-view frames, which draw kit and build only (module 02), check kit colours
 and build against the sheet instead:
 
-- [ ] Every named character in frame matches their sheet: skin, hair colour, variant, kit
-      (read the tuple off the frame, not from memory); where the roster map records an
+- [ ] Every character in frame has a roster-map entry and a sheet, and matches it: skin,
+      hair colour, variant, and kit (the roster map's `kit:` override if present, else the
+      sheet's `team`), read off the frame, not from memory; where the roster map records an
       open `si` mismatch for a character, check the frame against that `si` and list it in
       the delivery note. No crests, sponsor logos, badges, facial features or beards
       anywhere on a sprite
 - [ ] No two characters in any frame share a normalised `(skin, hair, variant)` tuple
-      (module 01: bald counts as no hair), and the two teams' shirts differ in colour
+      as drawn (the sheet cmap, or the `si` look where an `si` mismatch is open; module 01:
+      bald counts as no hair), unless the collision is recorded as owner-accepted in the
+      roster map and the delivery note; and the two teams' shirts differ in colour
 - [ ] Every identity colour is a named palette entry in the pre-CRT frame (no off-palette
       tints), and no sheet's hair entry equals its skin entry
 - [ ] Hair variants sit on-grid: correct row count, no orphan pixels, head seated on the

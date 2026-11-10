@@ -40,15 +40,19 @@ sheets:
   - { id: riverside-okafor,     si: 4 }   # si = legacy engine index, only where the engine still wants one
                                           # MISMATCH (open): si 4 gives DBROWN skin / ORANGE hair; sheet is LSALMON / BLACK
   - { id: riverside-lindqvist,  si: 2 }   # MISMATCH (open): si 2 gives TAN skin; sheet skin is LSALMON (hair DBROWN matches)
-  - { id: riverside-castellano, si: 3, kit: riverside_away }   # optional kit override (see Kit swaps); sheet not shown here
+  - { id: riverside-castellano, si: 3 }   # sheet not shown here
                                           # MISMATCH (open): si 3 gives BROWN skin and BROWN hair, one entry (module 02 forbids it)
+  - { id: harbour-mensah }                # opponent in its home kit (RED shirt, no clash with WHITE); a match roster lists both sides (sheet not shown)
 ```
 
 Rules:
 * `kit:` is optional and selects a KIT entry for this video (away or third kit). It
   changes the KIT resolution only, never `skin`, `hair` or `variant`. Without it, the
-  sheet's `team` applies. Keepers keep their keeper KIT entry unless the override names
-  another keeper entry.
+  sheet's `team` applies. A side's outfielders all wear one KIT entry per video, so set
+  the same `kit:` on every outfield entry of that side. Keepers keep their keeper KIT
+  entry unless the override names another keeper entry.
+* A match roster lists both sides; the uniqueness check runs across both, on the tuple
+  as drawn (the sheet, or the `si` look where a mismatch is open).
 * The map is the only place looks are assigned. Clip files never pick skin or hair.
 * **Legacy-index caveat:** some engines couple skin and hair into one index
   (`skin = SKINS[si % 5]`, `hair = HAIRS[si % 5]`). That coupling cannot express a sheet
