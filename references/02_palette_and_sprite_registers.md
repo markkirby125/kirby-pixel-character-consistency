@@ -86,7 +86,7 @@ character. The base register:
 | `p` | shorts | team shorts |
 | `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`, else a build error; everyone else: `skin` |
 | `f` | boots | fixed (usually `BLACK`) |
-| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if set, else `extras.band`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
+| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if set, else `extras.band`, else a build error if the sprite draws `b`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
 | `.` / space | transparent | - |
 
 Extension protocol: new letters are allowed, but each must be documented here with its

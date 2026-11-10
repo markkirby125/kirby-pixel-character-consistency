@@ -45,7 +45,7 @@ and build against the sheet instead:
 - [ ] Numbers/names in tags match the sheets the roster map points to (font rules:
       uppercase, no brackets)
 - [ ] Big sprite (MOTM / podium / poster): wears the big-head overlay of the sheet's
-      `variant`, the sheet's colours, kit entry and build
+      `variant`, the sheet's colours and build, and the same effective kit as check 1
 - [ ] The `@preview_sheet` for this roster was opened and looked at before the build
       (record it in the review log)
 - [ ] Every sheet in the roster has two dated `sources` (no unverified sheet in a build)

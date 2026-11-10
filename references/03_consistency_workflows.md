@@ -10,8 +10,9 @@
    `@variant_lib`; module 02), plus one big-head overlay per variant in use if the video
    has a big-sprite moment. One `@char_sheet` per character from the research. Resolve the
    HAIRS/variant mapping; note anything that would not read at sprite scale. Then resolve
-   each sheet to its letter-to-colour cmap through the letter register (module 02); steps
-   4 and 5 render from that cmap.
+   each sheet to its letter-to-colour cmap through the letter register (module 02). The
+   kit letters resolve per video against the effective KIT entry (the roster map's `kit:`
+   if set, else the sheet's `team`), so steps 4 and 5 re-resolve them for each video.
 3. **Uniqueness check.** Collect the normalised `(skin, hair, variant)` tuple (module 01;
    bald counts as no hair) for the roster; assert every tuple unique and every sheet's
    `hair` entry different from its `skin` entry (module 02); resolve collisions by variant
@@ -37,15 +38,16 @@ One per video (or one per squad-season, filtered per video):
 ```yaml
 roster: riverside-matchday-2026-11-07
 sheets:
-  - { id: riverside-okafor,     si: 4 }   # si = legacy engine index, only where the engine still wants one
-                                          # MISMATCH (open): si 4 gives DBROWN skin / ORANGE hair; sheet is LSALMON / BLACK
-  - { id: riverside-lindqvist,  si: 2 }   # MISMATCH (open): si 2 gives TAN skin; sheet skin is LSALMON (hair DBROWN matches)
-  - { id: riverside-castellano, si: 3 }   # sheet not shown here
-                                          # MISMATCH (open): si 3 gives BROWN skin and BROWN hair, one entry (module 02 forbids it)
+  - { id: riverside-okafor,     si: 4, mismatch: "si 4 draws DBROWN skin / ORANGE hair; sheet LSALMON / BLACK" }   # si = legacy engine index, only where the engine still wants one
+  - { id: riverside-lindqvist,  si: 2, mismatch: "si 2 draws TAN skin; sheet skin LSALMON" }
+  - { id: riverside-castellano, si: 3, mismatch: "si 3 draws BROWN skin and BROWN hair, one entry (module 02 forbids it)" }   # sheet not shown here
   - { id: harbour-mensah }                # opponent in its home kit (RED shirt, no clash with WHITE); a match roster lists both sides (sheet not shown)
 ```
 
 Rules:
+* Exceptions are fields, not comments, so the checks can read them: an open `si`
+  mismatch is a `mismatch:` string on that entry, and an owner-accepted collision is an
+  `accepted_collision:` field naming the other `id` and the owner's decision date.
 * `kit:` is optional and selects a KIT entry for this video (away or third kit). It
   changes the KIT resolution only, never `skin`, `hair` or `variant`. Without it, the
   sheet's `team` applies. A side's outfielders all wear one KIT entry per video, so set
@@ -86,6 +88,6 @@ body rows, and the two never trade places.
 ## Big-sprite reuse
 
 The MOTM / podium / poster moments use the big sprite. Read the same sheet: build from
-`build`, hair from the big-head overlay of `variant`, kit from the same `team` entry. The
+`build`, hair from the big-head overlay of `variant`, kit from the effective KIT entry (the roster map's `kit:` if set, else the sheet's `team`). The
 big sprite must be recognisably the same character as the 9 px sprite - same colours, same
 silhouette cues - or the payoff moment breaks the identity you built the whole video on.
