@@ -20,7 +20,7 @@ can be diffed and validated mechanically.
 | `hair` | palette name | From the HAIRS register. Factual for natural colour; dyed colours allowed but must be sourced and dated. |
 | `variant` | id | Key from the `@variant_lib` (e.g. `short`, `afro`, `bun`). This is drawing style, chosen to read true at sprite scale. |
 | `build` | enum | `regular` / `tall` / `stocky`. Informs side-view `z` and casting notes; top-down sprites do not scale. |
-| `keeper` | bool | True only for goalkeepers. Sets gloves colour (`k`) and keeper sprite states (dive, punch, slump, sit). |
+| `keeper` | bool | True only for goalkeepers, and always true when `role` is `GK`. Sets gloves colour (`k`) and keeper sprite states (dive, punch, slump, sit). |
 | `extras` | map | Optional: `gloves` colour, `band` accent colour, `captain` flag (armband colour). Every `extras` key here must be referenced by a letter in the register (`gloves` -> `k`; `band` and `captain` -> `b`, where `captain` overrides `band`; see module 02). |
 | `sources` | list | Two dated sources for every factual claim (skin tone, hair colour/style, kit). Real names are fine as plain text; never draw crests, sponsor logos or badges. |
 | `version` | date | Last factual revision (hair dye, shaved head). Log the reason in `history`. |
@@ -35,10 +35,13 @@ teams in a match video. Colours are usually fixed by fact, so resolve collisions
 changing the **variant** first (drawing style is yours), and only recolour as a last
 resort with a source. Kit is not in the tuple: kit contrast helps a viewer but never
 resolves a collision. Keepers additionally carry gloves colour, which helps but does not
-excuse a tuple collision with an outfielder. The `bald` variant draws no hair, so compare
-bald characters on `(skin, variant)` only: two same-skin bald characters collide.
+excuse a tuple collision with an outfielder.
 
-Run the check mechanically: collect tuples for the roster, assert uniqueness, and state
+**Normalised tuple (the one every check uses):** `(skin, hair, variant)`, except that for
+`variant: bald` the hair value is replaced by `none`, because a bald head draws no hair.
+Two same-skin bald characters therefore collide whatever their `hair` field says.
+
+Run the check mechanically: collect normalised tuples for the roster, assert uniqueness, and state
 the result in the delivery notes.
 
 ## Literal example

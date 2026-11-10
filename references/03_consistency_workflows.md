@@ -7,12 +7,14 @@
    plain text; never draw crests, sponsor logos or badges.
 2. **Write the sheets.** If the project has no registers yet, define them first
    (`@palette_lock`: SKINS, HAIRS, KIT entries per team, the letter register and the
-   variant library; module 02). One `@char_sheet` per character from the research. Resolve the
+   variant library; module 02), plus one big-head overlay per variant in use if the video
+   has a big-sprite moment. One `@char_sheet` per character from the research. Resolve the
    HAIRS/variant mapping; note anything that would not read at sprite scale.
-3. **Uniqueness check.** Collect `(skin, hair, variant)` for the roster; assert every
-   tuple unique; resolve collisions by variant first. Record the result.
+3. **Uniqueness check.** Collect the normalised `(skin, hair, variant)` tuple (module 01;
+   bald counts as no hair) for the roster; assert every tuple unique; resolve collisions by variant first. Record the result.
 4. **Preview sheet.** Render a contact sheet (`@preview_sheet`): every character's sprite
-   states at final scale (idle + run, keeper states for keepers), with name tags. **Open
+   states at final scale (idle + run, every keeper state for keepers, the big sprite
+   where the video has one), with name tags. **Open
    the image and look at it** - silhouettes distinct at a glance, colours reading true,
    variants aligned on-grid, nothing garbled. This is the same discipline as the video
    review gate, applied before any frame is written.
@@ -29,7 +31,7 @@ sheets:
   - { id: riverside-okafor,     si: 4 }   # si = legacy engine index, only where the engine still wants one
                                           # MISMATCH (open): si 4 gives DBROWN skin / ORANGE hair; sheet is LSALMON / BLACK
   - { id: riverside-lindqvist,  si: 2 }   # MISMATCH (open): si 2 gives TAN skin; sheet skin is LSALMON (hair DBROWN matches)
-  - { id: riverside-castellano, si: 3, kit: harbour }   # optional kit override (see Kit swaps); sheet not shown here
+  - { id: riverside-castellano, si: 3, kit: riverside_away }   # optional kit override (see Kit swaps); sheet not shown here
 ```
 
 Rules:
@@ -41,7 +43,7 @@ Rules:
 * **Legacy-index caveat:** some engines couple skin and hair into one index
   (`skin = SKINS[si % 5]`, `hair = HAIRS[si % 5]`). That coupling cannot express a sheet
   (e.g. dark skin + blond twists). Where it binds, either extend the engine to take the
-  sheet's cmap directly (a one-time change - do it, the sheets are the asset), or use the
+  sheet's cmap (the letter-to-colour map resolved from the sheet, module 02) directly (a one-time change - do it, the sheets are the asset), or use the
   closest `si` and record the known mismatch in the map until the engine catches up.
   Never distort the sheet to fit the engine.
 * **Multi-team isolation:** the two teams' look spaces must not collide - a home player

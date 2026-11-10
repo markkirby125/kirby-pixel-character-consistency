@@ -19,12 +19,13 @@ re-decided it from memory. Eight ways it happens, and the checks that catch each
 
 ## Sprite checks to add to the visual review gate
 
-The project's frame review gate already looks at every sheet of frames. Add these eleven
+The project's frame review gate already looks at every sheet of frames. Add these twelve
 checks to its checklist for any video with sheet-driven characters:
 
 - [ ] Every named character in frame matches their sheet: skin, hair colour, variant, kit
       (read the tuple off the frame, not from memory)
-- [ ] No two characters in any frame share a `(skin, hair, variant)` tuple
+- [ ] No two characters in any frame share a normalised `(skin, hair, variant)` tuple
+      (module 01: bald counts as no hair)
 - [ ] Every identity colour is a named palette entry (no off-palette tints anywhere)
 - [ ] Hair variants sit on-grid: correct row count, no orphan pixels, head seated on the
       shirt rows
@@ -33,6 +34,8 @@ checks to its checklist for any video with sheet-driven characters:
 - [ ] Striped kits: stripes continuous through body rows, no stripe bleed into head rows
 - [ ] Numbers/names in tags match the sheets the roster map points to (font rules:
       uppercase, no brackets)
+- [ ] Big sprite (MOTM / podium / poster): wears the big-head overlay of the sheet's
+      `variant`, the sheet's colours, kit entry and build
 - [ ] The `@preview_sheet` for this roster was opened and looked at before the build
       (record it in the review log)
 - [ ] Every sheet in the roster has two dated `sources` (no unverified sheet in a build)
@@ -43,10 +46,12 @@ checks to its checklist for any video with sheet-driven characters:
 
 Run before the first render of any new roster or after any sheet change:
 
-1. Render `@preview_sheet`: one cell per character - idle and run states (plus one keeper
-   state for keepers) at final integer scale, name tag under each.
-2. Open the image. Check at full size (alignment, stray pixels) **and** at 25 percent
-   (does each character still read as the same character?).
+1. Render `@preview_sheet`: one cell per character - idle and run states (plus every
+   keeper state for keepers, and the big sprite where the video has one) at final integer
+   scale, name tag under each.
+2. Open the image. Check at full size (alignment, stray pixels) **and** at the size the
+   sprite occupies in the delivered frame (does each character still read as the same
+   character?).
 3. Fix at the sheet or library, never by patching the preview.
 4. Record "preview sheet reviewed PASS" in the review log with the date.
 

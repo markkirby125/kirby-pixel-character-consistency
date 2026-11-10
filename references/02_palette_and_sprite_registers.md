@@ -44,19 +44,25 @@ Rules:
 * Natural colour from research; dyed colours (platinum, ginger) allowed **with a dated
   source** - hair dye is the most volatile identity fact a person owns.
 * `YELLOW` (`FFEC27`) is not a hair colour: it is reserved for payoff type and UI.
+* `hair` must resolve to a different palette entry than `skin` (e.g. not `K16` for both),
+  or the head loses its hair silhouette. If a person's true colours land on one entry,
+  pick the nearest distinct entry and say so in the sheet's `notes`.
 
 ## The KIT register
 
-Per team: shirt colour `S`, shorts colour `p`, optional `striped` (2-px vertical stripes
-drawn by the renderer, using the two stripe colours `R` and `B` in place of `S`), optional
-`gloves` for keepers. Plain colours only - **no crests, no
+Per team: shirt colour `S`, shorts colour `p`, optional `gloves` for keepers, and for a
+striped kit `striped=True` plus two stripe colours `R` and `B`. Sprites always write shirt
+cells as `S`; with `striped=True` the renderer paints `S` cells as 2-px vertical stripes,
+`R` from the sprite's left column, then `B`, alternating (an odd last column takes the
+colour its pair would have had), re-anchored after a flip. A striped entry still sets
+`S` to its main colour. Plain colours only - **no crests, no
 sponsor logos, no badges**; ad boards are invented or the channel's own brand.
 
 ```python
 TEAMS = {
     "riverside": dict(S=WHITE, p=NAVY),
     "harbour":   dict(S=WHITE, p=DBLUE),        # kit colours sourced; away kits only when verified
-    "harbour_away": dict(striped=True, R=NAVY, B=WHITE, p=NAVY),  # striped kit: R and B replace S
+    "riverside_away": dict(S=NAVY, striped=True, R=NAVY, B=WHITE, p=NAVY),  # striped away kit
     "gk_lime":   dict(S=LIME, p=BLACK, gloves=WHITE),
     "gk_orange": dict(S=ORANGE, p=BLACK, gloves=WHITE),
 }
@@ -75,9 +81,9 @@ character. The base register:
 | `h` | hair | the sheet's `hair` colour |
 | `l` | limbs/skin | the sheet's `skin` colour |
 | `S` | shirt | team shirt (plain kits) |
-| `R`,`B` | shirt stripes | the KIT entry's `R` and `B` colours (striped kits) |
+| `R`,`B` | shirt stripes | reserved: never written in a sprite; the renderer substitutes the KIT entry's `R` and `B` for `S` cells in striped kits |
 | `p` | shorts | team shorts |
-| `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`; everyone else: `skin` |
+| `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`, else a build error; everyone else: `skin` |
 | `f` | boots | fixed (usually `BLACK`) |
 | `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if the captain flag is set, else `extras.band`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
 | `.` / space | transparent | - |
@@ -87,6 +93,9 @@ resolution rule and used consistently by every sheet that needs it. One project,
 letter register.
 
 ## The variant library
+
+Row layout comes from the project's base sprite: its head block is the rows above the
+first shirt row; the body rows are the shirt, shorts and boot rows below it.
 
 Hair variants are **the first 3 rows of the head block**, replacing the default rows, at
 the same width as the sprite (9 chars here). Same row count, same width - always, so the
@@ -122,9 +131,14 @@ honest variant and say so in the sheet's notes.
 
 ## Big sprites (side view / podium)
 
-The side-view stickman carries identity as kit colours + build (`z`) only; its head is
-drawn in the shirt colour. The MOTM / podium / poster big sprite must wear the character's
-hair through a `big-head` overlay of the sheet's `variant` (module 03). The library ships
+Two different sprites, two contracts:
+
+* **In-play side view (stickman):** identity is kit colours + build (`z`) only; the head
+  is drawn in the shirt colour, with no overlay.
+* **MOTM / podium / poster big sprite:** must wear the character's hair through a
+  `big-head` overlay of the sheet's `variant` (module 03).
+
+The library ships
 no overlays: before the first big-sprite render, draw one per variant in use, scaled up
 from the 3-row variant's silhouette, and add it to the library. Big-head contract
 (separate from the variant contract above): 9 wide x 9 tall, replacing the whole head

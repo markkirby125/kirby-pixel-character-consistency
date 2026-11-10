@@ -45,7 +45,7 @@ Both skills exist because identity is decided ONCE and then enforced EVERYWHERE.
 | [`01_character_sheet_format.md`](01_character_sheet_format.md) | The sheet schema, field rules, the uniqueness tuple, literal examples. | One `@char_sheet` per character. |
 | [`02_palette_and_sprite_registers.md`](02_palette_and_sprite_registers.md) | SKINS / HAIRS / KIT registers, char-map letter register, the hair-variant library, big-head overlays, flip rules. | `@palette_lock` + `@variant_lib` for the project. |
 | [`03_consistency_workflows.md`](03_consistency_workflows.md) | The 5-step pipeline, roster maps, kit swaps, keepers, multi-team isolation, cross-video continuity, big-sprite reuse. | Locked roster reused across all shots. |
-| [`04_failure_modes_and_review.md`](04_failure_modes_and_review.md) | The eight pixel drift modes, and the eleven sprite checks to add to the project's visual review gate. | Zero-drift delivery with recorded checks. |
+| [`04_failure_modes_and_review.md`](04_failure_modes_and_review.md) | The eight pixel drift modes, and the twelve sprite checks to add to the project's visual review gate. | Zero-drift delivery with recorded checks. |
 
 ## 🛑 When NOT to Use This Skill
 

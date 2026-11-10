@@ -105,7 +105,7 @@ Start at [`references/00_dispatcher.md`](references/00_dispatcher.md), the maste
 | Write a character sheet | [`01_character_sheet_format.md`](references/01_character_sheet_format.md) |
 | Define palette, registers, variants, big-head overlays | [`02_palette_and_sprite_registers.md`](references/02_palette_and_sprite_registers.md) |
 | Run the 5-step pipeline, roster maps, kit swaps, big-sprite reuse | [`03_consistency_workflows.md`](references/03_consistency_workflows.md) |
-| Review a build: eight drift modes and the eleven sprite review-gate checks | [`04_failure_modes_and_review.md`](references/04_failure_modes_and_review.md) |
+| Review a build: eight drift modes and the twelve sprite review-gate checks | [`04_failure_modes_and_review.md`](references/04_failure_modes_and_review.md) |
 
 ---
 
