@@ -31,7 +31,8 @@ checks to its checklist for any video with sheet-driven characters:
 - [ ] Flip-aware variants point the right way relative to movement
 - [ ] Keepers: gloves colour on the keeper only; keeper kit from the keeper KIT entry
 - [ ] Striped kits: stripes continuous through body rows, no stripe bleed into head rows
-- [ ] Numbers/names in tags match the roster map (font rules: uppercase, no brackets)
+- [ ] Numbers/names in tags match the sheets the roster map points to (font rules:
+      uppercase, no brackets)
 - [ ] The `@preview_sheet` for this roster was opened and looked at before the build
       (record it in the review log)
 - [ ] Every sheet in the roster has two dated `sources` (no unverified sheet in a build)
@@ -51,5 +52,6 @@ Run before the first render of any new roster or after any sheet change:
 
 ## Delivery note
 
-State in the delivery message: roster file and version used, uniqueness check result,
+State in the delivery message: the roster map name and the `version` of each sheet used,
+any `kit:` overrides, the uniqueness check result,
 preview review result, and any `si` mismatches still open from the legacy-index caveat.

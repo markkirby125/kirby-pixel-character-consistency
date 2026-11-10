@@ -32,9 +32,11 @@ can be diffed and validated mechanically.
 `(skin, hair, variant)` must be **unique within every frame two characters can share** -
 practically: unique across the whole roster that appears in one video, and across both
 teams in a match video. Colours are usually fixed by fact, so resolve collisions by
-changing the **variant** first (drawing style is yours), then kit contrast, and only
-recolour as a last resort with a source. Keepers additionally carry gloves colour, which
-helps but does not excuse a tuple collision with an outfielder.
+changing the **variant** first (drawing style is yours), and only recolour as a last
+resort with a source. Kit is not in the tuple: kit contrast helps a viewer but never
+resolves a collision. Keepers additionally carry gloves colour, which helps but does not
+excuse a tuple collision with an outfielder. The `bald` variant draws no hair, so compare
+bald characters on `(skin, variant)` only: two same-skin bald characters collide.
 
 Run the check mechanically: collect tuples for the roster, assert uniqueness, and state
 the result in the delivery notes.
@@ -84,7 +86,8 @@ version: 2026-11-07
   owner instead of guessing. An unverified sheet never enters a build.
 * **Variant is drawing, not fact.** `variant` is the minimum set of pixels that makes the
   silhouette read correctly at 9 px wide: `long` for hair past the shoulders, `afro` for
-  volume, `bun` for tied-up hair, `twists` for textured styles, `bald` for none. Do not
+  volume, `bun` for tied-up hair, `twists` for textured styles, `bald` for none (the full
+  list is the variant library in module 02). Do not
   draw facial features, beards or logos - the project's no-likeness rule stands: a generic
   sprite whose only identity is colour + silhouette.
 * **Numbers, names and kits are checked against the fact sheet**, like every other fact in

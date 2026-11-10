@@ -33,8 +33,8 @@ Both skills exist because identity is decided ONCE and then enforced EVERYWHERE.
 | Asset Variable | Data Type | Canonical Description | Role |
 |---|---|---|---|
 | `@palette_lock` | Constant table | The renderer's fixed indexed palette (e.g. 32 colours) plus its named registers: SKINS, HAIRS, KIT and the char-map letter register (four registers). | Every identity colour must resolve to a named palette entry. No free hex. |
-| `@char_sheet` | Data (one per character) | The per-character spec: skin, hair colour, hair variant, team (KIT key), keeper flag, build, notes. The single source of truth for identity. | Decides identity once. Everything downstream reads it, never re-decides. |
-| `@variant_lib` | Sprite-map rows | Named hair/head variants as char-map rows (same width and row count as the base sprite) plus big-head overlays for large sprites (their own 9x9 contract, see module 02). | Lets characters differ in silhouette without breaking sprite alignment. |
+| `@char_sheet` | Data (one per character) | The per-character spec: skin, hair colour, hair variant, team (KIT key), keeper flag, build, notes, sources, version, history. The single source of truth for identity. | Decides identity once. Everything downstream reads it, never re-decides. |
+| `@variant_lib` | Sprite-map rows | Named hair/head variants as 3-row head patches at sprite width (contract in module 02) plus big-head overlays for large sprites (their own 9x9 contract, see module 02). | Lets characters differ in silhouette without breaking sprite alignment. |
 | `@roster_map` | Data (one per video or squad-season) | Assignment of each character appearing in the work to its `@char_sheet` id (and, where the engine still wants a legacy index, that index). | Prevents re-deciding looks per video and collisions inside one frame. |
 | `@preview_sheet` | Image (.png) | Contact sheet of each character's sprites at final scale, rendered from the sheets before any video is built. | The human look-check that locks the roster. |
 

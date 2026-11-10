@@ -15,7 +15,7 @@ Index convention: the index columns are positions in the project's 32-entry tabl
 | `TAN` | 22 | `A28879` | olive / tanned |
 | `BROWN` | 4 | `AB5236` | mid-deep |
 | `DBROWN` | 20 | `742F29` | deep |
-| `K16` | 16 | `291814` | very deep (extension; add to the project's skin list if any roster member needs it) |
+| `K16` | 16 | `291814` | very deep (extended colour) |
 
 Rules:
 * Skin tone is factual. Pick the register entry that reads true at sprite scale; when two
@@ -47,14 +47,16 @@ Rules:
 
 ## The KIT register
 
-Per team: shirt colour(s), shorts colour, optional `striped` (2-px vertical stripes drawn
-by the renderer), optional `gloves` for keepers. Plain colours only - **no crests, no
+Per team: shirt colour `S`, shorts colour `p`, optional `striped` (2-px vertical stripes
+drawn by the renderer, using the two stripe colours `R` and `B` in place of `S`), optional
+`gloves` for keepers. Plain colours only - **no crests, no
 sponsor logos, no badges**; ad boards are invented or the channel's own brand.
 
 ```python
 TEAMS = {
     "riverside": dict(S=WHITE, p=NAVY),
     "harbour":   dict(S=WHITE, p=DBLUE),        # kit colours sourced; away kits only when verified
+    "harbour_away": dict(striped=True, R=NAVY, B=WHITE, p=NAVY),  # striped kit: R and B replace S
     "gk_lime":   dict(S=LIME, p=BLACK, gloves=WHITE),
     "gk_orange": dict(S=ORANGE, p=BLACK, gloves=WHITE),
 }
@@ -73,9 +75,9 @@ character. The base register:
 | `h` | hair | the sheet's `hair` colour |
 | `l` | limbs/skin | the sheet's `skin` colour |
 | `S` | shirt | team shirt (plain kits) |
-| `R`,`B` | shirt stripes | team stripe colours (striped kits) |
+| `R`,`B` | shirt stripes | the KIT entry's `R` and `B` colours (striped kits) |
 | `p` | shorts | team shorts |
-| `k` | hands / keeper gloves | `extras.gloves` for keepers, else `skin` |
+| `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`; everyone else: `skin` |
 | `f` | boots | fixed (usually `BLACK`) |
 | `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if the captain flag is set, else `extras.band`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
 | `.` / space | transparent | - |
@@ -120,9 +122,11 @@ honest variant and say so in the sheet's notes.
 
 ## Big sprites (side view / podium)
 
-The side-view stickman and the big podium sprite carry identity as kit colours + build
-(`z`) only; the head is drawn in the shirt colour. Optional `big-head` overlays let the
-MOTM-style big sprite wear the character's hair. Big-head contract (separate from the
-variant contract above): 9 wide x 9 tall, replacing the whole head block; the 3-row
-variant contract does not apply. Same rules otherwise: palette colours only, silhouette
+The side-view stickman carries identity as kit colours + build (`z`) only; its head is
+drawn in the shirt colour. The MOTM / podium / poster big sprite must wear the character's
+hair through a `big-head` overlay of the sheet's `variant` (module 03). The library ships
+no overlays: before the first big-sprite render, draw one per variant in use, scaled up
+from the 3-row variant's silhouette, and add it to the library. Big-head contract
+(separate from the variant contract above): 9 wide x 9 tall, replacing the whole head
+block; the 3-row variant contract does not apply. Same rules otherwise: palette colours only, silhouette
 over detail, symmetric unless flip-aware.

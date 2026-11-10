@@ -5,7 +5,9 @@
 1. **Research.** For each real person: two dated sources for skin tone, natural hair
    colour, current style (dye, cut, length), squad number and kit. Real names are fine as
    plain text; never draw crests, sponsor logos or badges.
-2. **Write the sheets.** One `@char_sheet` per character from the research. Resolve the
+2. **Write the sheets.** If the project has no registers yet, define them first
+   (`@palette_lock`: SKINS, HAIRS, KIT entries per team, the letter register and the
+   variant library; module 02). One `@char_sheet` per character from the research. Resolve the
    HAIRS/variant mapping; note anything that would not read at sprite scale.
 3. **Uniqueness check.** Collect `(skin, hair, variant)` for the roster; assert every
    tuple unique; resolve collisions by variant first. Record the result.
@@ -27,10 +29,14 @@ sheets:
   - { id: riverside-okafor,     si: 4 }   # si = legacy engine index, only where the engine still wants one
                                           # MISMATCH (open): si 4 gives DBROWN skin / ORANGE hair; sheet is LSALMON / BLACK
   - { id: riverside-lindqvist,  si: 2 }   # MISMATCH (open): si 2 gives TAN skin; sheet skin is LSALMON (hair DBROWN matches)
-  - { id: riverside-castellano, si: 3 }   # sheet not shown in this module: record any mismatch here when it is written
+  - { id: riverside-castellano, si: 3, kit: harbour }   # optional kit override (see Kit swaps); sheet not shown here
 ```
 
 Rules:
+* `kit:` is optional and selects a KIT entry for this video (away or third kit). It
+  changes the KIT resolution only, never `skin`, `hair` or `variant`. Without it, the
+  sheet's `team` applies. Keepers keep their keeper KIT entry unless the override names
+  another keeper entry.
 * The map is the only place looks are assigned. Clip files never pick skin or hair.
 * **Legacy-index caveat:** some engines couple skin and hair into one index
   (`skin = SKINS[si % 5]`, `hair = HAIRS[si % 5]`). That coupling cannot express a sheet
@@ -46,7 +52,8 @@ Rules:
 ## Kit swaps = recolour only
 
 Away kits, third kits and keeper kits change the KIT resolution, never the identity
-fields. A character in an away kit keeps `skin`, `hair`, `variant`. This is the pixel
+fields; select them per video with the roster map's `kit:` override, never by editing the
+sheet. A character in an away kit keeps `skin`, `hair`, `variant`. This is the pixel
 analogue of wardrobe decoupling: identity rides in the head rows, clothing rides in the
 body rows, and the two never trade places.
 
