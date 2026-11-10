@@ -17,11 +17,11 @@ can be diffed and validated mechanically.
 | `role` | enum | `GK` / `DF` / `MF` / `FW` (or the project's own cast roles). Selects keeper sprites and default pitch zones. |
 | `team` | key | Key into the project's KIT register (e.g. `riverside`, `harbour`, `gk_lime`). |
 | `skin` | palette name | From the SKINS register. Factual: research the person. |
-| `hair` | palette name | From the HAIRS register. Factual for natural colour; dyed colours allowed but must be sourced and dated. |
+| `hair` | palette name | From the HAIRS register. Factual for natural colour; dyed colours allowed but must be sourced and dated. `none` is allowed only with `variant: bald`. |
 | `variant` | id | Key from the `@variant_lib` (e.g. `short`, `afro`, `bun`). This is drawing style, chosen to read true at sprite scale. |
 | `build` | enum | `regular` / `tall` / `stocky`. Informs side-view `z` and casting notes; top-down sprites do not scale. |
 | `keeper` | bool | True only for goalkeepers, and always true when `role` is `GK`. Sets gloves colour (`k`) and keeper sprite states (dive, punch, slump, sit). |
-| `extras` | map | Optional: `gloves` colour, `band` accent colour, `captain` flag (armband colour). Every `extras` key here must be referenced by a letter in the register (`gloves` -> `k`; `band` and `captain` -> `b`, where `captain` overrides `band`; see module 02). |
+| `extras` | map | Optional: `gloves` colour, `band` accent colour, `captain` armband colour (a palette name; its presence marks the captain). Every `extras` key here must be referenced by a letter in the register (`gloves` -> `k`; `band` and `captain` -> `b`, where `captain` overrides `band`; see module 02). |
 | `sources` | list | Two dated sources for every factual claim (skin tone, hair colour/style, kit). Real names are fine as plain text; never draw crests, sponsor logos or badges. |
 | `version` | date | Last factual revision (hair dye, shaved head). Log the reason in `history`. |
 | `history` | list | Optional. One entry per superseded revision: `{ version, date, change_reason }` (`version` = the retired value, `date` = when it changed, `change_reason` = why, e.g. "dyed platinum, per source"). |
@@ -40,6 +40,11 @@ excuse a tuple collision with an outfielder.
 **Normalised tuple (the one every check uses):** `(skin, hair, variant)`, except that for
 `variant: bald` the hair value is replaced by `none`, because a bald head draws no hair.
 Two same-skin bald characters therefore collide whatever their `hair` field says.
+
+**When no honest variant change can separate two characters** (e.g. two same-skin bald
+players), stop and escalate to the project owner. An owner-accepted collision is recorded
+in the roster map and the delivery note; the uniqueness check and gate check 2 accept
+only collisions recorded that way.
 
 Run the check mechanically: collect normalised tuples for the roster, assert uniqueness, and state
 the result in the delivery notes.

@@ -26,10 +26,13 @@ in in-play side-view frames, which draw kit and build only (module 02), check ki
 and build against the sheet instead:
 
 - [ ] Every named character in frame matches their sheet: skin, hair colour, variant, kit
-      (read the tuple off the frame, not from memory)
+      (read the tuple off the frame, not from memory); where the roster map records an
+      open `si` mismatch for a character, check the frame against that `si` and list it in
+      the delivery note
 - [ ] No two characters in any frame share a normalised `(skin, hair, variant)` tuple
       (module 01: bald counts as no hair), and the two teams' shirts differ in colour
-- [ ] Every identity colour is a named palette entry (no off-palette tints anywhere)
+- [ ] Every identity colour is a named palette entry in the pre-CRT frame (no off-palette
+      tints), and no sheet's hair entry equals its skin entry
 - [ ] Hair variants sit on-grid: correct row count, no orphan pixels, head seated on the
       shirt rows
 - [ ] Flip-aware variants point the right way relative to movement
@@ -56,7 +59,8 @@ Run before the first render of any new roster or after any sheet change:
    sprite occupies in the delivered frame (does each character still read as the same
    character?).
 3. Fix at the sheet or library, never by patching the preview.
-4. Record "preview sheet reviewed PASS" in the review log with the date.
+4. Record "preview sheet reviewed PASS" in the review log with the date. An agent that
+   cannot view images hands the sheet to the owner and records no PASS itself.
 
 ## Delivery note
 

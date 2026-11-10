@@ -11,13 +11,16 @@
    has a big-sprite moment. One `@char_sheet` per character from the research. Resolve the
    HAIRS/variant mapping; note anything that would not read at sprite scale.
 3. **Uniqueness check.** Collect the normalised `(skin, hair, variant)` tuple (module 01;
-   bald counts as no hair) for the roster; assert every tuple unique; resolve collisions by variant first. Record the result.
+   bald counts as no hair) for the roster; assert every tuple unique and every sheet's
+   `hair` entry different from its `skin` entry (module 02); resolve collisions by variant
+   first, then escalate (module 01). Record the result.
 4. **Preview sheet.** Render a contact sheet (`@preview_sheet`): every character's sprite
    states at final scale (idle + run, every keeper state for keepers, the big sprite
    where the video has one), with name tags. **Open
    the image and look at it** - silhouettes distinct at a glance, colours reading true,
    variants aligned on-grid, nothing garbled. This is the same discipline as the video
-   review gate, applied before any frame is written.
+   review gate, applied before any frame is written. If you cannot view images, hand the
+   sheet to the owner and record no PASS yourself.
 5. **Lock and reference.** Freeze the squad file; clip files reference sheet ids via the
    `@roster_map` and never hard-code colours.
 

@@ -44,7 +44,8 @@ Rules:
 * Natural colour from research; dyed colours (platinum, ginger) allowed **with a dated
   source** - hair dye is the most volatile identity fact a person owns.
 * `YELLOW` (`FFEC27`) is not a hair colour: it is reserved for payoff type and UI.
-* `hair` must resolve to a different palette entry than `skin` (e.g. not `K16` for both),
+* `hair` must resolve to a different palette entry than `skin` (e.g. not `K16` for both;
+  `hair: none` on a bald sheet is exempt),
   or the head loses its hair silhouette. If a person's true colours land on one entry,
   pick the nearest distinct entry and say so in the sheet's `notes`.
 
@@ -85,7 +86,7 @@ character. The base register:
 | `p` | shorts | team shorts |
 | `k` | hands / keeper gloves | keepers: `extras.gloves` if set, else the keeper KIT entry's `gloves`, else a build error; everyone else: `skin` |
 | `f` | boots | fixed (usually `BLACK`) |
-| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if the captain flag is set, else `extras.band`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
+| `b` | accent (headbands, armbands) | `extras.captain` (armband colour) if set, else `extras.band`; `captain` overrides `band`. Always defined in the base register; the `band` variant needs `extras.band` |
 | `.` / space | transparent | - |
 
 Extension protocol: new letters are allowed, but each must be documented here with its
@@ -122,8 +123,10 @@ Default (`short`):
 | `ponytail` | `...hhh...` / `..hhhhh.h` / `..hhhhh.h` | tail behind | **yes** |
 
 Flip rule: sprite blits mirror when a character faces the other way. Symmetric variants
-are safe. `ponytail` mirrors with the sprite - acceptable, but note it on the sheet so the
-review gate checks the tail stays behind the head relative to direction of travel.
+are safe. `ponytail` mirrors with the sprite, which keeps the tail behind the head as long
+as the sprite is drawn facing its direction of travel; note it on the sheet so the review
+gate checks that facing. A tail that leads is fixed by correcting the sprite's facing, not
+by redrawing the variant.
 
 Adding a variant: keep the 3-row 9-char contract, keep it readable at 1x, prefer
 silhouette over detail. If a real hairstyle cannot read at this scale, pick the nearest
